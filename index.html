@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=4.0, user-scalable=yes, shrink-to-fit=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<title>Reader</title>
+
+	<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+	<script
+			src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous"></script>
+	<script src="semantic/dist/semantic.min.js"></script>
+	<script src="node_modules/jszip/vendor/FileSaver.js"></script>
+	<script src="node_modules/jszip-utils/dist/jszip-utils.min.js"></script>
+	<script src="node_modules/jszip/dist/jszip.min.js"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body class=" pushable">
+
+<div class="ui sidebar horizontal top" id="topbar">
+	<div class="center-message">
+		<p class="" id="result"></p>
+		<div class="progress hidden" id="progress_bar">
+			<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ui sidebar vertical menu left" id="leftbar">
+	<a class="item" href="https://to-love-scan.com/" target="_blank">
+		<img src="https://i1.wp.com/to-love-scan.com/wp-content/uploads/2017/02/cropped-cropped-tls_logo-1.png?fit=300%2C60&ssl=1" alt="logo">
+	</a>
+	<div class="item">
+		<div class="ui right icon button red inverted fluid" id="back_first_page">
+			<i class="left circle arrow icon"></i>
+			Retour à la liste
+		</div>
+	</div>
+	<div class="item">
+		<form class="ui form" id="choisir_chap">
+			<div class="field">
+				<label>Selectionne une série :</label>
+				<select class="ui fluid dropdown" id="series_select">
+				</select>
+			</div>
+			<div class="field">
+				<label>Sellectionne un chapitre :</label>
+				<select class="ui fluid dropdown" id="chapter_select">
+
+				</select>
+			</div>
+			<div class="field">
+				<div type="submit" class="ui right icon button red inverted fluid" tabindex="0">
+					Lire le chapitre
+					<i class="right arrow icon"></i>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+	<div class="pusher" id="first_page_content">
+
+		<div class="ui inverted vertical masthead center aligned segment" id="first_page_header">
+			<div class="ui text container">
+				<a href="https://to-love-scan.com/" target="_blank">
+					<img src="https://i1.wp.com/to-love-scan.com/wp-content/uploads/2017/02/cropped-cropped-tls_logo-1.png?fit=300%2C60&ssl=1" alt="logo">
+				</a>
+			</div>
+		</div>
+
+		<!-- Premiere page -->
+		<div class="ui main container" id="first_page_container">
+
+			<div class="ui icon info message" id="info_reader">
+				<i class="info circle icon"></i>
+				<div class="content">
+					Notre lecture en ligne fonctionne entièrement en javascript et n'intègre pas encore d'historique de navigation.<br/>
+					C'est pourquoi faire un retour arrière sur votre navigateur vous fera quitter cette page, ou que recharger la page vous fera revenir ici, même si vous êtes en train de lire un chapitre.<br/>
+					L'historique de navigation sera (surement un jour... peut-être) ajouté.
+				</div>
+			</div>
+
+			<div class="ui three column grid"  id="first_page">
+
+			</div>
+		</div>
+
+	</div>
+	<div class="pusher reader-pusher" style="display: none;">
+
+
+
+
+
+		<div class="full height">
+
+			<!-- Navigation -->
+			<div id="navigation_div" style="display: none;">
+				<div class="btn-navigation toggle-leftbar" id="toggle_leftbar" style="display:none;">
+					<div class="ui circular icon image">
+						<i class="sidebar icon"></i>
+					</div>
+				</div>
+				<div class="btn-navigation prev-chapter" id="prev_chapter" style="display:none;" data-tooltip="Chapitre précédent" data-position="top right">
+					<div class="ui circular icon image pointing" >
+
+						<i class="angle double right icon"></i>
+					</div>
+				</div>
+				<div class="btn-navigation next-chapter" id="next_chapter" style="display:none;" data-tooltip="Chapitre suivant" data-position="top left">
+					<div class="ui circular icon image pointing" >
+						<i class="angle double left icon"></i>
+					</div>
+				</div>
+				<div class="btn-navigation download-chapter" id="download_chapter" data-tooltip="Download" data-position="bottom left">
+					<div class="ui circular icon image pointing" >
+						<i class="download icon"></i>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- Reader -->
+			<div class="reader-container" id="reader_container" style="display: none;">
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+	<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+body,
+body.pushable>.pusher
+{
+    background-color: #DADADA;
+}
+img
+{
+    max-width: 100%;
+}
+
+#info_reader
+{
+    margin-top: 30px;
+}
+.ui.card
+{
+    width: 100%;
+}
+#first_page_container
+{
+    margin-bottom: 30px;
+}
+
+#first_page
+{
+    margin-top: 30px;
+}
+.chap-list
+{
+    max-height: 150px;
+    overflow-y: scroll;
+}
+.chap-link-div
+{
+    margin-top: 10px;
+}
+.chap-link-div  > a
+{
+    color: #000;
+}
+.reader-content
+{
+    position: relative;
+    min-height:100%;
+}
+.image
+{
+    text-align: center;
+}
+.btn-navigation
+{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    z-index: 200;
+    font-size:2.1em;
+    opacity: 0.35;
+}
+.btn-navigation:hover
+{
+    opacity: 1;
+}
+.toggle-leftbar
+{
+    left: 20px;
+    top:20px;
+}
+.download-chapter
+ {
+     left: 90px;
+     top:20px;
+ }
+.prev-chapter
+{
+    right: 20px;
+    bottom:20px;
+}
+.next-chapter
+{
+    left: 20px;
+    bottom:20px;
+}
+.toggle-leftbar > div.image,
+.prev-chapter > div.image,
+.next-chapter > div.image,
+.download-chapter > div.image
+{
+    position: relative;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    background-color: #b5b5b5;
+    cursor: pointer;
+}
+
+.toggle-leftbar > div > i,
+.prev-chapter >div > i,
+.next-chapter >div > i
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.bibi-menu
+{
+    display: none;
+}
+.reader-container
+{
+    text-align: center;
+}
+.reader-container img
+{
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.ui.circular.image>*
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+.full.width {
+    width: 100%;
+}
+.center-message{
+    text-align: center;
+    margin: auto;
+    width: fit-content;
+}
+#topbar{
+    background-color: transparent;
+}
+#topbar .ui.message{
+    margin:0;
+}
+/*
+.view-horizontal .image-spread-box.current:nth-child(odd) iframe.item
+{
+    margin-left: -50% !important;
+    padding-left: 50% !important;
+}
+.view-horizontal .image-spread-box.current:nth-child(even) iframe.item
+{
+    margin-right: -50% !important;
+    padding-right: 50% !important;
+}*/
