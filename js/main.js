@@ -406,10 +406,10 @@ $(function()
         $("#series_select").val(selectedSerie);
         $("#series_select").trigger('change');
 
-        $("#first_page_content").slideUp();
-        $("#toggle_leftbar").show();
-        $("#navigation_div").show();
-
+        $("#first_page_content").slideUp(400, function(){
+            $("#toggle_leftbar").show();
+            $("#navigation_div").show();
+        });
         changeReaderSource();
     }
 

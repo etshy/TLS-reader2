@@ -17,6 +17,8 @@ $epubFolders = "bookshelf/";
 //Max hierarchy to search
 $hierarchyLevelMax = 3;
 
+$extensionsAllowed = array('jpg', 'jpeg', 'png');
+
 /**
  * ENF CONFIG
  */
@@ -25,6 +27,7 @@ header("Access-Control-Allow-Origin: *");
 
 function listFolders($dir, $hierarchyLevel, $hierarchyLevelMax)
 {
+    global $extensionsAllowed;
     $hierarchyLevel++;
     $dh = scandir($dir);
     $return = array();
@@ -33,7 +36,7 @@ function listFolders($dir, $hierarchyLevel, $hierarchyLevelMax)
 
     //TODO lorsqu'on arrive au dernier niveau de hierarchie (avec les images) on les tries pour etre sur qu'elle soient dans l'ordre.
     foreach ($dh as $folder) {
-        if ($folder != '.' && $folder != '..') {
+        if (substr($folder, 0, 1) !== "." && substr($folder, 0, 5) !== "index") {
             $folderPath = $dir . '/' . $folder;
             if (is_dir($folderPath)) {
                 if($hierarchyLevel == $hierarchyLevelMax)
@@ -45,8 +48,14 @@ function listFolders($dir, $hierarchyLevel, $hierarchyLevelMax)
             } else {
                 //FILE
                 //TODO Detect file extension and adapt array key ('image', 'synopsis' etc.)
+                $extension = substr($folder, strrpos($folder, ".") + 1);
 
-                $return[] = $folder;
+                if(!in_array($extension, $extensionsAllowed)){
+                    //Other than a image file
+                } else {
+                    $return[] = $folder;
+                }
+
             }
         }
     }
@@ -59,7 +68,6 @@ function listFolders($dir, $hierarchyLevel, $hierarchyLevelMax)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
     $folders = listFolders($epubFolders, 0, $hierarchyLevelMax);
 
     header('Content-Type: application/json');
