@@ -5,4 +5,4 @@
 # TODO
 
 - Ajouter un selecteur de chapitre dans la sidebar
-- Ajouter des bouotns page suivante et page précédente
+- Ajouter des boutons page suivante et page précédente
