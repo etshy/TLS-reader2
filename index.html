@@ -46,13 +46,19 @@
 	<div class="item">
 		<form class="ui form" id="choisir_chap">
 			<div class="field">
-				<label>Selectionne une série :</label>
+				<label>Sélectionne une série :</label>
 				<select class="ui fluid dropdown" id="series_select">
 				</select>
 			</div>
 			<div class="field">
-				<label>Sellectionne un chapitre :</label>
+				<label>Sélectionne un chapitre :</label>
 				<select class="ui fluid dropdown" id="chapter_select">
+
+				</select>
+			</div>
+			<div class="field">
+				<label>Sélectionne une page :</label>
+				<select class="ui fluid dropdown" id="page_select">
 
 				</select>
 			</div>
@@ -116,9 +122,20 @@
 						<i class="angle double left icon"></i>
 					</div>
 				</div>
-				<div class="btn-navigation next-chapter" id="next_chapter" style="display:none;" data-tooltip="Chapitre Suivant" data-position="top right">
+				<div class="btn-navigation prev-page " id="prev_page" data-tooltip="Page Précédente" data-position="top left">
 					<div class="ui circular icon image pointing" >
+						<i class="angle left icon"></i>
+					</div>
+				</div>
 
+				<div class="btn-navigation next-page" id="next_page" data-tooltip="Page Suivante" data-position="top right">
+					<div class="ui circular icon image pointing" >
+						<i class="angle right icon"></i>
+					</div>
+				</div>
+
+				<div class="btn-navigation next-chapter" id="next_chapter" data-tooltip="Chapitre Suivant" data-position="top right">
+					<div class="ui circular icon image pointing" >
 						<i class="angle double right icon"></i>
 					</div>
 				</div>

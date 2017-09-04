@@ -30,7 +30,7 @@ $(function()
     var readerEnabled = false;
     var baseUrl = 'bookshelf/';
     var selectedChapPages = null;
-
+    var selectedPage = null;
 
     /**
      * Functions
@@ -50,16 +50,13 @@ $(function()
      * @param {String} text the text to show.
      */
     function showMessage(text) {
-
         resetMessage();
-        console.log(text);
         $("#result")
             .addClass("ui positive message")
             .text(text);
         if($("#topbar").sidebar('is hidden')){
             $("#topbar").sidebar('show');
         }
-
     }
     /**
      * show an error message.
@@ -142,9 +139,12 @@ $(function()
         $(".reader-container").slideDown();
 
         selectedChapPages = fileTreeJson[selectedSerie][selectedChap];
-
-        //On affiche la premiere page
-        changePageDisplay(0);
+        if(selectedPage){
+            changePageDisplay(selectedPage);
+        } else {
+            //On affiche la premiere page
+            changePageDisplay(0);
+        }
 
         readerEnabled = true;
 
@@ -178,23 +178,20 @@ $(function()
                 }
             }
         });
-
         if(selectedChapFound)
         {
             $('#chapter_select').val(selectedChap)
         }
+        generatePagesSelect();
     }
 
     function generateSeriesSelect()
     {
-
         if(!fileTreeJson)
         {
             return false;
         }
-
         $('#series_select').empty();
-
         $.each(fileTreeJson, function (index, value) {
             if(typeof value == 'string')
             {
@@ -207,8 +204,34 @@ $(function()
                 $('#series_select').append($option);
             }
         });
-
         generateChapterSelect();
+    }
+
+    function generatePagesSelect()
+    {
+        if(!$("#chapter_select").val())
+        {
+            return false;
+        }
+        var serie = $("#series_select").val();
+        var chapterSerie = fileTreeJson[serie];
+        var chapter = $("#chapter_select").val();
+        var chapterSeriePages = fileTreeJson[serie][chapter];
+        $('#page_select').empty();
+        $.each(chapterSeriePages, function (index, value) {
+
+            if(typeof value == 'string')
+            {
+                //image, on a le nom de l'image
+                $option = $('<option>');
+                $option.attr('value', index);
+                $option.text(index);
+                $('#page_select').append($option);
+            } else {
+                //array, c'est un dossier (on ne doit pas passer par la)
+            }
+        });
+        $('#page_select').val(0);
     }
 
     function detectNextChapter()
@@ -286,12 +309,14 @@ $(function()
     {
         selectedChap = nextChap;
         $("#chapter_select").val(selectedChap);
+        selectedPage = 0;
         changeReaderSource();
     }
     function goToPrevChapter()
     {
         selectedChap = prevChap;
         $("#chapter_select").val(selectedChap);
+        selectedPage = 0;
         changeReaderSource();
     }
     function getFileTreeJson()
@@ -401,6 +426,7 @@ $(function()
     function goToChapterOnFirstPage(that) {
         selectedSerie = $(that).closest('.serie-card').data('serie')
         selectedChap = $(that).data('chap');
+        selectedPage = 0;
         readerEnabled = true;
 
         $("#series_select").val(selectedSerie);
@@ -425,15 +451,20 @@ $(function()
 
     }
 
-    function changePageDisplay(nextPage){
+    function changePageDisplay(page){
 
         var $img = $('<img>');
 
-        $img.attr('src', baseUrl+ selectedSerie + '/' + selectedChap + '/' + selectedChapPages[nextPage]);
-        $img.data('currentPage', nextPage);
+        $img.attr('src', baseUrl+ selectedSerie + '/' + selectedChap + '/' + selectedChapPages[page]);
+        $img.data('currentPage', page);
 
         $("#reader_container").empty();
         $("#reader_container").append($img);
+
+        selectedPage = page;
+        $("#page_select").val(selectedPage);
+
+        detectPrevNextPages();
     }
 
     function clickOnPage($this) {
@@ -449,6 +480,29 @@ $(function()
             goToNextChapter();
         } else {
             goBackToFirstPage();
+        }
+
+    }
+
+    function backPage($this){
+        var currentPage = $this.data('currentPage');
+        var prevpage = currentPage - 1;
+
+        if(selectedChapPages[prevpage]){
+            //précédente page existante
+            changePageDisplay(prevpage);
+        }
+
+
+    }
+
+    function detectPrevNextPages(){
+        var currentPage = selectedPage;
+        if(currentPage == 0){
+            //1st page, hide prev_page
+            $("#prev_page").hide();
+        } else {
+            $("#prev_page").show();
         }
     }
 
@@ -488,6 +542,9 @@ $(function()
 
         selectedSerie = $("#series_select").val();
         selectedChap = $("#chapter_select").val();
+        if($("#page_select").val()){
+            selectedPage = $("#page_select").val();
+        }
 
         changeReaderSource();
 
@@ -516,11 +573,20 @@ $(function()
 
     $("#reader_container").on('click', 'img', function(event){
         clickOnPage($(this));
-    })
+    });
+    $("#next_page").on('click', function(event){
+        event.preventDefault();
+
+        clickOnPage($("#reader_container").find('img'));
+    });
+    $("#prev_page").on('click', function(event){
+        event.preventDefault();
+        backPage($("#reader_container").find('img'));
+    });
 
     $("#download_chapter").on('click', function(event) {
         event.preventDefault();
         downloadChapter();
-    })
+    });
 
 });
