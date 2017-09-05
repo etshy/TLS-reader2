@@ -535,6 +535,8 @@ $(function()
     });
     $("#chapter_select").on('change', function (event) {
         selectedChap = $(this).val();
+        selectedPage = 0;
+        generatePagesSelect();
     });
 
     $('form .button').on('click', function (event) {

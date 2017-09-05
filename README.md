@@ -5,6 +5,7 @@
 # TODO
 
 - préchargement des pages
+- amélioration de la présentation du select des pages
 - responsive
 - gestion clavier
 - animation quand on passe sur bouton (:hover)
