@@ -6,9 +6,9 @@
 
 - préchargement des pages [v]
 - amélioration de la présentation du select des pages
-- responsive
-- gestion clavier
-- animation quand on passe sur bouton (:hover)
+- responsive (pour les boutons "flottants" surtout)
+- gestion clavier (?)
+- animation quand on passe sur lien (:hover) sur la 1ere page
 
 exemple raccourci claviers (merci albirew)
 gestion clavier: http://lel.hhh-world.com/handreading.html

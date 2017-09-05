@@ -349,7 +349,10 @@ $(function()
 
             $titre = $("<div>");
             $titre.addClass('content');
-            $titre.html(index);
+            $headerTitre = $("<div>");
+            $headerTitre.addClass('header');
+            $headerTitre.html(index);
+            $titre.append($headerTitre);
 
             $image = $("<div>");
             $image.addClass('image');

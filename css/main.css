@@ -38,7 +38,11 @@ img
 }
 .chap-link-div  > a
 {
-    color: #000;
+    color: #101010;
+}
+.chap-link-div  > a:hover
+{
+    color: #7e2374;
 }
 .reader-content
 {
