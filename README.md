@@ -1,10 +1,10 @@
 # TLS-reader2
-2ème reader - aucun lien avec le 1er
+2ème reader - sans le plugin de lecture des epubs
 
 ==========================
 # TODO
 
-- préchargement des pages
+- préchargement des pages [v]
 - amélioration de la présentation du select des pages
 - responsive
 - gestion clavier
