@@ -2,6 +2,8 @@ body,
 body.pushable>.pusher
 {
     background-color: #DADADA;
+    background-image: url("../img/TLS_logo_fond.jpg");
+    background-repeat: repeat;
 }
 img
 {
