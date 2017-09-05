@@ -157,6 +157,9 @@ img.prev-page{
     position: absolute;
     left: -3000px;
 }
+#page_select_div{
+    min-width: inherit;
+}
 
 /*
 .view-horizontal .image-spread-box.current:nth-child(odd) iframe.item

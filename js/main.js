@@ -217,21 +217,26 @@ $(function()
         var chapterSerie = fileTreeJson[serie];
         var chapter = $("#chapter_select").val();
         var chapterSeriePages = fileTreeJson[serie][chapter];
-        $('#page_select').empty();
+        $('#page_select_div .menu').empty();
         $.each(chapterSeriePages, function (index, value) {
 
             if(typeof value == 'string')
             {
                 //image, on a le nom de l'image
-                $option = $('<option>');
+                //<div class="item" data-value="male">Male</div>
+                $option = $('<div>');
+                $option.addClass('item');
                 $option.attr('value', index);
+                $option.data('value', index);
                 $option.text(index);
-                $('#page_select').append($option);
+                $('#page_select_div .menu').append($option);
             } else {
                 //array, c'est un dossier (on ne doit pas passer par la)
             }
         });
         $('#page_select').val(0);
+
+        $('#page_select_div').dropdown();
     }
 
     function detectNextChapter()
@@ -479,6 +484,7 @@ $(function()
 
         selectedPage = page;
         $("#page_select").val(selectedPage);
+        $("#page_select_div").dropdown();
 
         //preload 2 pages forward and 2 pages backward
         for (var i=1; i <= preloadPagesNumber; i++) {
@@ -486,11 +492,9 @@ $(function()
             var prevPage = page - i;
             if(nextPage >= 0 && selectedChapPages[nextPage] ){
                 if($('img').find("[data-page='" + (nextPage) + "']").length > 0){
-                    console.log('next page exists')
                     $img = $('img').find("[data-page='" + nextPage + "']");
                     $img.removeClass().addClass('next-page');
                 } else {
-                    console.log('next page not exists')
                     $img = createImgTag(nextPage);
                     $img.addClass('next-page');
                     $("#reader_container").append($img);
@@ -638,5 +642,14 @@ $(function()
         event.preventDefault();
         downloadChapter();
     });
+
+    $("#page_select").on('change', function(event){
+        event.preventDefault();
+        selectedPage = $(this).val();
+        console.log(selectedPage)
+        changeReaderSource();
+        $("#toggle_leftbar").trigger('click');
+        $("#first_page_content").slideUp();
+    })
 
 });
