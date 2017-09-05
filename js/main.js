@@ -21,7 +21,7 @@ $(function()
 
     });
 
-
+    var preloadPagesNumber = 3;
     var fileTreeJson = null;
     var selectedSerie = null;
     var selectedChap = null;
@@ -451,25 +451,66 @@ $(function()
 
     }
 
+    function createImgTag(pageIndex){
+        var $img = $('<img>');
+        $img.attr('src', baseUrl+ selectedSerie + '/' + selectedChap + '/' + selectedChapPages[pageIndex]);
+        $img.data('page', pageIndex);
+        return $img;
+    }
+
     function changePageDisplay(page){
 
-        var $img = $('<img>');
+        page = parseInt(page);
 
-        $img.attr('src', baseUrl+ selectedSerie + '/' + selectedChap + '/' + selectedChapPages[page]);
-        $img.data('currentPage', page);
-
-        $("#reader_container").empty();
-        $("#reader_container").append($img);
+        if($('img').find("[data-page='" + page + "']").length > 0){
+            //if the img tag we want to display exists
+            $img = $('img').find("[data-page='" + page + "']");
+            $img.removeClass().addClass('current-page');
+        } else {
+            //Insert current page to load it first
+            var $img = createImgTag(page);
+            $img.addClass('current-page');
+            $("#reader_container").empty();
+            $("#reader_container").append($img);
+        }
 
         selectedPage = page;
         $("#page_select").val(selectedPage);
+
+        //preload 2 pages forward and 2 pages backward
+        for (var i=1; i <= preloadPagesNumber; i++) {
+            var nextPage = page + i;
+            var prevPage = page - i;
+            if(nextPage >= 0 && selectedChapPages[nextPage] ){
+                if($('img').find("[data-page='" + (nextPage) + "']").length > 0){
+                    console.log('next page exists')
+                    $img = $('img').find("[data-page='" + nextPage + "']");
+                    $img.removeClass().addClass('next-page');
+                } else {
+                    console.log('next page not exists')
+                    $img = createImgTag(nextPage);
+                    $img.addClass('next-page');
+                    $("#reader_container").append($img);
+                }
+            }
+            if(prevPage >= 0 && selectedChapPages[prevPage]) {
+                if($('img').find("[data-page='" + (prevPage) + "']").length > 0){
+                    $img = $('img').find("[data-page='" + (prevPage) + "']");
+                    $img.removeClass().addClass('next-page');
+                } else {
+                    $img = createImgTag(prevPage);
+                    $img.addClass('prev-page');
+                    $("#reader_container").append($img);
+                }
+            }
+        }
 
         detectPrevNextPages();
     }
 
     function clickOnPage($this) {
 
-        var currentPage = $this.data('currentPage');
+        var currentPage = $this.data('page');
         var nextpage = currentPage + 1;
 
         if(selectedChapPages[nextpage]){
@@ -485,15 +526,13 @@ $(function()
     }
 
     function backPage($this){
-        var currentPage = $this.data('currentPage');
+        var currentPage = $this.data('page');
         var prevpage = currentPage - 1;
 
         if(selectedChapPages[prevpage]){
             //précédente page existante
             changePageDisplay(prevpage);
         }
-
-
     }
 
     function detectPrevNextPages(){
@@ -503,6 +542,12 @@ $(function()
             $("#prev_page").hide();
         } else {
             $("#prev_page").show();
+        }
+        if(selectedChapPages[currentPage+1]){
+            //next page exists
+            $("#next_page").show();
+        } else {
+            $("#next_page").hide();
         }
     }
 
@@ -579,11 +624,11 @@ $(function()
     $("#next_page").on('click', function(event){
         event.preventDefault();
 
-        clickOnPage($("#reader_container").find('img'));
+        clickOnPage($("#reader_container").find('img.current-page'));
     });
     $("#prev_page").on('click', function(event){
         event.preventDefault();
-        backPage($("#reader_container").find('img'));
+        backPage($("#reader_container").find('img.current-page'));
     });
 
     $("#download_chapter").on('click', function(event) {

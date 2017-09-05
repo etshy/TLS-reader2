@@ -143,6 +143,17 @@ img
 #topbar .ui.message{
     margin:0;
 }
+
+img.next-page{
+    position: absolute;
+    right: -3000px;
+
+}
+img.prev-page{
+    position: absolute;
+    left: -3000px;
+}
+
 /*
 .view-horizontal .image-spread-box.current:nth-child(odd) iframe.item
 {
