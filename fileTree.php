@@ -71,5 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $folders = listFolders($epubFolders, 0, $hierarchyLevelMax);
 
     header('Content-Type: application/json');
+
     echo json_encode($folders);
 }
