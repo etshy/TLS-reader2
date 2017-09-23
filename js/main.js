@@ -448,8 +448,7 @@ $(function()
     }
 
     function goBackToFirstPage(){
-
-        $("#toggle_leftbar").trigger('click');
+        $('#leftbar').sidebar("hide");
         $("#navigation_div").hide();
         $(".reader-container").slideUp(function () {
             $(".reader-pusher").hide();
