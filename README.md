@@ -15,6 +15,10 @@ Make sure :
 - the chapter folder name is digits only, as the name will be used in chapter select input.
 - the comics/manga pages are only number as the filename (without extension) will be used to order the page and to populate the page select input.
 
+# Customization
+Search the images in the html and css files to replace them
+the reader is really light and don't have any sort of admin part to control that
+
 ==========================
 # TODO
 
