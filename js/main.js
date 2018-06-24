@@ -10,17 +10,6 @@ $(function()
         $('#leftbar').sidebar('toggle');
     });
 
-    $("#load_embed").on('click', function()
-    {
-        //<a href="http://91.121.173.74/reader/?book=[TLS]TLD76.epub" data-bibi="embed" data-bibi-style="width: 100%; height: 100%;">My Great Book Title</a><script src="http://91.121.173.74/reader/i/script/bibi.js"></script>
-        $('.embed-reader').empty();
-
-        ebookpath = '[TLS]TLD76.epub'
-        $('.embed-reader').html(
-            '<a href="http://91.121.173.74/reader/bib/i/?book='+ ebookpath +'" data-bibi="embed" data-bibi-style="">OUI</a><script src="http://91.121.173.74/reader/bib/i.js"></script>' );
-
-    });
-
     var preloadPagesNumber = 3;
     var fileTreeJson = null;
     var selectedSerie = null;
