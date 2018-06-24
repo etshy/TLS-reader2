@@ -1,9 +1,13 @@
 # Ligth-reader
 A very light reader to allow your visitors to read manga or comics online.
 
+# Deps
+- Semantic-ui
+- jquery
+- FileSaver
+- JSZipUtils
+
 Very few configs to change in the php scripts
-
-
 
 Make sure :
 - your series folders are the first in your "bookshelf" (or whatever you named your folder)
